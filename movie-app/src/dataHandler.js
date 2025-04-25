@@ -4,6 +4,7 @@
  * @property {string} title
  * @property {string} description
  * @property {number} rating
+ * @property {number[] | null} genres
  * @property {boolean} favorite
  */
 
@@ -13,6 +14,7 @@ const initialMovies = [
     title: "Avengers",
     description: "A cool movie!",
     rating: 5.0,
+    genres: null,
     favorite: false,
   },
   {
@@ -20,6 +22,7 @@ const initialMovies = [
     title: "Pulp Fiction",
     description: "A cool movie!",
     rating: 5.0,
+    genres: null,
     favorite: false,
   },
   {
@@ -27,6 +30,7 @@ const initialMovies = [
     title: "Star Wars",
     description: "A cool movie!",
     rating: 5.0,
+    genres: null,
     favorite: false,
   },
   {
@@ -34,6 +38,7 @@ const initialMovies = [
     title: "Indiana Jones",
     description: "A cool movie!",
     rating: 5.0,
+    genres: null,
     favorite: false,
   },
   {
@@ -41,6 +46,7 @@ const initialMovies = [
     title: "Inception",
     description: "A cool movie!",
     rating: 5.0,
+    genres: null,
     favorite: false,
   },
 ];
@@ -96,7 +102,7 @@ export function addMovies(newMovies) {
     if (nextMovies.find((m) => m.id === newMovie.id) != null) return;
     // Next movie id must be higher than any assigned id
     if (newMovie.id >= nextMovieId) nextMovieId = newMovie.id + 1;
-    
+
     nextMovies.push(newMovie);
   });
   movies = nextMovies;
