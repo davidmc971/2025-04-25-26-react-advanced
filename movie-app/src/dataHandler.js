@@ -1,3 +1,12 @@
+/**
+ * @typedef {Object} Movie
+ * @property {string} id
+ * @property {string} title
+ * @property {string} description
+ * @property {number} rating
+ * @property {boolean} favorite
+ */
+
 const initialMovies = [
   {
     id: 0,
@@ -37,6 +46,8 @@ const initialMovies = [
 ];
 
 let nextMovieId = 5;
+
+/** @type {Movie[]} */
 let movies;
 initMovies();
 
@@ -73,6 +84,23 @@ export function addMovie(movie) {
   movies = [...movies, { ...movie, id: nextMovieId++ }];
   updateLocalStorage();
   return movies;
+}
+
+/** @param {Movie[]} newMovies  */
+export function addMovies(newMovies) {
+  // Copy current movies
+  /** @type {Movie[]} */
+  const nextMovies = movies.slice();
+  newMovies.forEach((newMovie) => {
+    // If movie id exists, do not add new movie
+    if (nextMovies.find((m) => m.id === newMovie.id) != null) return;
+    // Next movie id must be higher than any assigned id
+    if (newMovie.id >= nextMovieId) nextMovieId = newMovie.id + 1;
+    
+    nextMovies.push(newMovie);
+  });
+  movies = nextMovies;
+  return nextMovies;
 }
 
 export function rateMovie(id, rating) {
